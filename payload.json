@@ -1,0 +1,7 @@
+{
+      "stac_url": [
+                    "https://datacube.services.geo.ca/api/collections/",
+                    "https://api.weather.gc.ca/stac/msc-datamart?f=json"
+                  ]
+    
+}
