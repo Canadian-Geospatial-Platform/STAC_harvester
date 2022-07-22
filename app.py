@@ -5,8 +5,7 @@ import logging
 import boto3
 from botocore.exceptions import ClientError
 
-BUCKET_NAME = "stac-harvest-json-dev"
-#BUCKET_NAME = os.environ['BUCKET_NAME']
+BUCKET_NAME = os.environ['BUCKET_NAME']
 BUCKET_LOCATION = "ca-central-1"
 
 def lambda_handler(event, context):
@@ -137,7 +136,7 @@ def harvest_items(stac_json_collection_url, bucket, bucket_location):
     :param bucket_location: bucket regions 
     :return: accumulated error messages
     """
-    error_msg = None 
+    error_msg = "" 
     if create_bucket(bucket, bucket_location):
         count = 0 
         # Request collection and get collection id 
@@ -179,7 +178,8 @@ def harvest_items(stac_json_collection_url, bucket, bucket_location):
                         error_msg += e
             else: 
                 print("Could not find any collections in the provided api")
-                error_msg="Could not find any collections in api: " + stac_json_collection_url 
+                error_msg="Could not find any collections in api: " + stac_json_collection_url
+            error_msg="Harvesting was successful"
     else: 
         error_msg="Could not create S3 bucket: " + bucket 
     return error_msg
